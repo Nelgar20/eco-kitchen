@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="hero-img flex-grow-1">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-12 col-md-7 col-lg-5 pt-5">
+                <h1 class="display-4 mb-4">EcoKitchen</h1>
+                <p class="col-5 col-md-7 lead lh-lg mb-4 pt-5">Discover delicious recipes and make the most of
+                    the ingredients you already have.</p>
+                <p class="col-5 col-md-7 lh-lg mb-4">Plan your meals, manage your pantry, and keep
+                    good food from going to waste.</p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a class="btn btn-dark " href="">Recipes</a>
+                    <a class="btn btn-dark" href="">Food Waste Manager</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,4 +1,28 @@
-/* footer */
+:root {
+  --heading-font: "Playfair Display", serif;
+  --body-font: "Source Sans 3", sans-serif;
+}
+
+body {
+    font-family: var(--body-font);
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--heading-font);
+}
+
 footer p {
     color: white;
+}
+
+/* Home */
+.hero-img {
+    background: url('../images/nEV9_aLuh1VGtslZtPLAe_rvQjrDHi.webp') center no-repeat;
+    background-size: cover;
+}
+
+.txt-lg {
+    font-size: 20px;
 }
