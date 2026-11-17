@@ -7,13 +7,17 @@
 {% endblock %}
 
 {% block content %}
-<div class="container logout-page pb-5">
+<div class="container auth-page pb-5">
     <div class="row justify-content-center">
         <div class="col-12 col-md-8 col-lg-6 text-center">
 
-            <h1 class='mb-4 display-5'>{% trans 'Sign Out' %}</h1>
+            <h1 class='mb-4 display-5'>
+                {% trans 'Sign Out' %}
+            </h1>
 
-            <p class="mb-4">Are you sure you want to sign out?</p>
+            <p class="mb-4">
+                Are you sure you want to sign out?
+            </p>
 
             <form method="post" action="">
                 {% csrf_token %}

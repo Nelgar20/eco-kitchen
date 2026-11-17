@@ -1,39 +1,75 @@
-{% extends "account/base_entrance.html" %}
+{% extends "base.html" %}
 {% load i18n %}
 {% load account %}
-{% load allauth %}
-{% block head_title %}
-    {% trans "Confirm Email Address" %}
-{% endblock head_title %}
+
+{% block title %}
+{% trans "Confirm Email Address" %}
+{% endblock %}
+
 {% block content %}
-    {% element h1 %}
-        {% trans "Confirm Email Address" %}
-    {% endelement %}
-    {% if confirmation %}
-        {% user_display confirmation.email_address.user as user_display %}
-        {% if can_confirm %}
-            {% element p %}
-                {% blocktrans with confirmation.email_address.email as email %}Please confirm that <a href="mailto:{{ email }}">{{ email }}</a> is an email address for user {{ user_display }}.{% endblocktrans %}
-            {% endelement %}
-            {% url 'account_confirm_email' confirmation.key as action_url %}
-            {% element form method="post" action=action_url %}
-                {% slot actions %}
-                    {% csrf_token %}
-                    {{ redirect_field }}
-                    {% element button type="submit" %}
-                        {% trans 'Confirm' %}
-                    {% endelement %}
-                {% endslot %}
-            {% endelement %}
-        {% else %}
-            {% element p %}
-                {% blocktrans %}Unable to confirm {{ email }} because it is already confirmed by a different account.{% endblocktrans %}
-            {% endelement %}
-        {% endif %}
-    {% else %}
-        {% url 'account_email' as email_url %}
-        {% element p %}
-            {% blocktrans %}This email confirmation link expired or is invalid. Please <a href="{{ email_url }}">issue a new email confirmation request</a>.{% endblocktrans %}
-        {% endelement %}
-    {% endif %}
+<div class="container auth-page pb-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6 text-center">
+
+            <h1 class="mb-4 display-5">
+                {% trans "Confirm Email Address" %}
+            </h1>
+
+            {% if confirmation %}
+            {% user_display confirmation.email_address.user as user_name %}
+
+            {% if can_confirm %}
+            <p class="mb-4">
+                You're nearly ready to join the EcoKitchen community!
+            </p>
+
+            <p class="mb-4">
+                Please confirm that
+                <a href="mailto:{{ confirmation.email_address.email }}">
+                    {{ confirmation.email_address.email }}
+                </a>
+                is the email address for {{ user_name }}.
+            </p>
+
+            <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+                {% csrf_token %}
+                {{ redirect_field }}
+
+                <button class="btn btn-dark" type="submit">
+                    {% trans "Confirm Email" %}
+                </button>
+            </form>
+
+            {% else %}
+            <p class="mb-4">
+                We couldn't confirm
+                {{ confirmation.email_address.email }}
+                because this email address is already associated
+                to a different account.
+            </p>
+
+            <a href="{% url 'account_login' %}" class="btn btn-dark">
+                Back to Sign In
+            </a>
+            {% endif %}
+
+            {% else %}
+            <p class="mb-4">
+                This email confirmation link has expired or is invalid.
+                Please request a new confirmation email.
+            </p>
+
+            <p class="mb-4">
+                Please sign in with your account details to receive
+                a new verification email if your address is still unverified.
+            </p>
+
+            <a href="{% url 'account_login' %}" class="btn btn-dark">
+                Sign In
+            </a>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
 {% endblock content %}
