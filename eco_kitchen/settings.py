@@ -96,9 +96,14 @@ ACCOUNT_EMAIL_VERIFICATION = 'optional'
 ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
 # Configuration for crispy forms
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
+# The MealDB API
+MEALDB_API_KEY = os.environ.get('MEALDB_API_KEY', '1')
+MEALDB_BASE_URL = "https://www.themealdb.com/api/json/v1"
 
 WSGI_APPLICATION = 'eco_kitchen.wsgi.application'
 
