@@ -55,7 +55,7 @@
                         </p>
                         {% endif %}
 
-                        <a href="" class="btn btn-dark mt-3">
+                        <a href="{% url 'recipe_detail' meal_id=recipe.idMeal %}" class="btn btn-dark mt-3">
                             View recipe
                         </a>
                     </div>
@@ -107,7 +107,7 @@
                         </p>
                         {% endif %}
 
-                        <a href=""
+                        <a href="{% url 'recipe_detail' meal_id=random_recipe.idMeal %}"
                             class="btn btn-dark mt-3">
                             View recipe
                         </a>

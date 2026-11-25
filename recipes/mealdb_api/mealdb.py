@@ -72,3 +72,20 @@ def filter_by_area(area):
     """ Get recipes filtered by cuisine style """
     data = _get('filter.php', params={'a': area})
     return _recipes(data)
+
+
+def get_ingredients(recipe):
+    """Return the recipe with ingredient's quantities."""
+    ingredients = []
+
+    for number in range(1, 21):
+        name = (recipe.get(f'strIngredient{number}') or '').strip()
+        measure = (recipe.get(f'strMeasure{number}') or '').strip()
+
+        if name:
+            ingredients.append({
+                'name': name,
+                'measure': measure,
+            })
+
+    return ingredients

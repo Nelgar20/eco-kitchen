@@ -1,0 +1,73 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <a href="{% url 'recipes' %}" class="btn btn-outline-dark mb-4">
+        Back to recipes
+    </a>
+
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% else %}
+    <article>
+        <header class="text-center mb-4">
+            <h1>{{ recipe.strMeal }}</h1>
+
+            {% if recipe.strCategory %}
+            <p class="mb-1">
+                Category: {{ recipe.strCategory }}
+            </p>
+            {% endif %}
+
+            {% if recipe.strArea %}
+            <p class="mb-1">
+                Cuisine: {{ recipe.strArea }}
+            </p>
+            {% endif %}
+        </header>
+
+        <section class="card mb-5" aria-labelledby="ingredients-heading">
+            <div class="row">
+                <div class="col-md-4">
+                    {% if recipe.strMealThumb %}
+                    <img class="img-fluid h-100 w-100" src="{{ recipe.strMealThumb }}" alt="{{ recipe.strMeal }}">
+                    {% endif %}
+                </div>
+
+                <div class="card-body col-md-4">
+                    <h2 class="card-title" id="ingredients-heading">Ingredients</h2>
+
+                    <ul class="card-text list-group list-group-flush">
+                        {% for ingredient in ingredients %}
+                        <li class="list-group-item">
+                            {% if ingredient.measure %}
+                            {{ ingredient.measure }}
+                            {% endif %}
+                            {{ ingredient.name }}
+                        </li>
+                        {% empty %}
+                        <li class="list-group-item">
+                            No ingredients available.
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section aria-labelledby="instructions-heading">
+            <h2 class="text-center mb-3" id="instructions-heading">Instructions</h2>
+
+            {% if recipe.strInstructions %}
+            {{ recipe.strInstructions|linebreaks }}
+            {% else %}
+            <p>No instructions available.</p>
+            {% endif %}
+        </section>
+    </article>
+    {% endif %}
+</div>
+{% endblock %}
