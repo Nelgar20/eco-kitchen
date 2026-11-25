@@ -7,6 +7,7 @@ class MealDBError(Exception):
     
 
 def _get(endpoint, params=None):
+    """ Send a request to TheMealDB and get back a json response """
     url = f'{settings.MEALDB_BASE_URL}/{settings.MEALDB_API_KEY}/{endpoint}'
     
     try:
@@ -14,10 +15,11 @@ def _get(endpoint, params=None):
         response.raise_for_status()
         return response.json()
     except requests.RequestException as error:
-        raise MealDBError('Sorry, something went wrong.') from error
+        raise MealDBError from error
 
 
 def _recipes(data):
+    """ Create a recipe list, or an empty list if no matches """
     recipes = data.get('meals')
     
     if not recipes:

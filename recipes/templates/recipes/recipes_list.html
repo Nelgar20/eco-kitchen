@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <header class="text-center">
+        <h1>Find a recipe</h1>
+        <p class="lead">Browse recipes from all over the world or discover a random dish </p>
+    </header>
+
+    <!-- Search recipe form -->
+    <form method="get" class="mb-5" role="search">
+        <label for="search-recipe" class="form-label">
+            Ingredient
+        </label>
+        <div class="input-group">
+            <input type="search" id="search-recipe" name="q" class="form-control" placeholder="Ingredient..."
+                value="{{ query }}" required>
+            <button type="submit" class="btn btn-dark">
+                Search
+            </button>
+        </div>
+    </form>
+    <!-- Display search results -->
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+
+    {% elif query %}
+    <section class="mb-5" aria-labelledby="heading-search-results">
+        <h2 class="mb-4" id="heading-search-results">
+            Recipes containing "{{ query }}"
+        </h2>
+
+        <div class="row g-4">
+            {% for recipe in recipes %}
+            <div class="col-12 col-md-6 col-lg-4">
+                <article class="card h-100 shadow-sm">
+                    <img class="card-img-top" src="{{ recipe.strMealThumb }}" alt="{{ recipe.strMeal }}">
+                    <div class="card-body">
+                        <h3 class="card-title h5">
+                            {{ recipe.strMeal }}
+                        </h3>
+
+                        {% if recipe.strCategory %}
+                        <p class="card-text mb-1 text-body-secondary">
+                            Category: {{ recipe.strCategory }}
+                        </p>
+                        {% endif %}
+
+                        {% if recipe.strArea %}
+                        <p class="card-text mb-1 text-body-secondary">
+                            Cuisine: {{ recipe.strArea }}
+                        </p>
+                        {% endif %}
+
+                        <a href="" class="btn btn-dark mt-3">
+                            View recipe
+                        </a>
+                    </div>
+                </article>
+            </div>
+
+            {% empty %}
+            <div class="col-12">
+                <p class="alert alert-info">
+                    No recipes found with "{{ query }}".
+                    Try with another ingredient.
+                </p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% else %}
+    <p class="text-center mb-5 text-body-secondary">
+        Enter an ingredient above to start browsing recipes.
+    </p>
+    {% endif %}
+
+    <!-- Random recipes results -->
+    {% if random_recipe %}
+    <section aria-labelledby="random-recipe">
+        <h2 class="mb-4" id="random-recipe">
+            Need some inspiration?
+        </h2>
+        <article class="card mb-3 shadow-sm">
+            <div class="row">
+                <div class="col-md-4">
+                    <img class="card-img-top" src="{{ random_recipe.strMealThumb }}" alt="{{ random_recipe.strMeal }}">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h3 class="card-title h3 my-5">
+                            {{ random_recipe.strMeal }}
+                        </h3>
+
+                        {% if random_recipe.strCategory %}
+                        <p class="card-text mb-1 text-body-secondary">
+                            Category: {{ random_recipe.strCategory }}
+                        </p>
+                        {% endif %}
+
+                        {% if random_recipe.strArea %}
+                        <p class="card-text mb-1 text-body-secondary">
+                            Cuisine: {{ random_recipe.strArea }}
+                        </p>
+                        {% endif %}
+
+                        <a href=""
+                            class="btn btn-dark mt-3">
+                            View recipe
+                        </a>
+
+                        <p class="card-text mt-5">
+                            Looking for something else?
+                            Just refresh the page to see a different recipe.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+    </section>
+    {% endif %}
+</div>
+{% endblock %}

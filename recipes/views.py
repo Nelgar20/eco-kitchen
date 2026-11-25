@@ -11,7 +11,7 @@ def recipes(request):
     
     if query:
         try:
-            recipes = mealdb.search_recipes(query)
+            recipes = mealdb.filter_by_ingredient(query)
         except MealDBError:
             error = 'Sorry, something went wrong.'
     
@@ -22,7 +22,7 @@ def recipes(request):
     
     return render(
         request,
-        'recipes/recipes.html',
+        'recipes/recipes_list.html',
         {
             'query': query,
             'recipes': recipes,
