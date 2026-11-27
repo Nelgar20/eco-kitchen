@@ -30,3 +30,10 @@ footer p {
 .auth-page {
     padding-top: 20vh;
 }
+
+/* Profile app */
+
+.profile-card {
+    max-width: 500px;
+    margin: 0 auto;
+}
